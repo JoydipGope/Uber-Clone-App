@@ -238,29 +238,19 @@ The request body should be a JSON object with the following structure:
 ```json
 {
   "fullname": {
-    "firstname": "string (min: 3 characters, required)",
-    "lastname": "string (optional)"
+    "firstname": "string", // required, min: 3 characters
+    "lastname": "string" // optional
   },
-  "email": "string (valid email format, required)",
-  "password": "string (min: 6 characters, required)",
+  "email": "string", // required, valid email format
+  "password": "string", // required, min: 6 characters
   "vehicle": {
-    "color": "string (min: 3 characters, required)",
-    "plate": "string (min: 3 characters, required)",
-    "capacity": "integer (positive, required)",
-    "vehicleType": "string (min: 3 characters, required)"
+    "color": "string", // required, min: 3 characters
+    "plate": "string", // required, min: 3 characters
+    "capacity": "integer", // required, positive integer
+    "vehicleType": "string" // required, min: 3 characters
   }
 }
 ```
-
-### Validation Rules
-- `fullname.firstname`: Must be at least 3 characters long and is required.
-- `fullname.lastname`: Optional.
-- `email`: Must be a valid email address and is required.
-- `password`: Must be at least 6 characters long and is required.
-- `vehicle.color`: Must be at least 3 characters long and is required.
-- `vehicle.plate`: Must be at least 3 characters long and is required.
-- `vehicle.capacity`: Must be a positive integer and is required.
-- `vehicle.vehicleType`: Must be at least 3 characters long and is required.
 
 ## Response
 ### Success Response
@@ -269,17 +259,17 @@ The request body should be a JSON object with the following structure:
 **Body:**
 ```json
 {
-  "_id": "string",
+  "_id": "string", // unique identifier for the captain
   "fullname": {
-    "firstname": "string",
-    "lastname": "string"
+    "firstname": "string", // captain's first name
+    "lastname": "string" // captain's last name
   },
-  "email": "string",
+  "email": "string", // captain's email
   "vehicle": {
-    "color": "string",
-    "plate": "string",
-    "capacity": "integer",
-    "vehicleType": "string"
+    "color": "string", // vehicle color
+    "plate": "string", // vehicle plate number
+    "capacity": "integer", // vehicle capacity
+    "vehicleType": "string" // type of vehicle
   }
 }
 ```
@@ -292,9 +282,9 @@ The request body should be a JSON object with the following structure:
 {
   "errors": [
     {
-      "msg": "string (error message)",
-      "param": "string (field name)",
-      "location": "string (body)"
+      "msg": "string", // error message
+      "param": "string", // field name
+      "location": "string" // location of the error (e.g., body)
     }
   ]
 }
