@@ -152,3 +152,74 @@ curl -X POST \
     "password": "password123"
   }'
 ```
+
+# Users/Profile Endpoint Documentation
+
+## Endpoint
+`GET /profile`
+
+## Description
+This endpoint retrieves the profile information of the authenticated user.
+
+## Headers
+- `Authorization`: Bearer token (required)
+
+## Response
+### Success Response
+**Status Code:** `200 OK`
+
+**Body:**
+```json
+{
+  "_id": "string",
+  "fullname": {
+    "firstname": "string",
+    "lastname": "string"
+  },
+  "email": "string"
+}
+```
+
+### Error Responses
+**Status Code:** `401 Unauthorized`
+
+**Body:**
+```json
+{
+  "message": "Authentication required"
+}
+```
+
+---
+
+# Users/Logout Endpoint Documentation
+
+## Endpoint
+`GET /logout`
+
+## Description
+This endpoint logs out the authenticated user by invalidating their session.
+
+## Headers
+- `Authorization`: Bearer token (required)
+
+## Response
+### Success Response
+**Status Code:** `200 OK`
+
+**Body:**
+```json
+{
+  "message": "Successfully logged out"
+}
+```
+
+### Error Responses
+**Status Code:** `401 Unauthorized`
+
+**Body:**
+```json
+{
+  "message": "Authentication required"
+}
+```
