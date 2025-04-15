@@ -223,3 +223,100 @@ This endpoint logs out the authenticated user by invalidating their session.
   "message": "Authentication required"
 }
 ```
+
+# Captain/Register Endpoint Documentation
+
+## Endpoint
+`POST /captain/register`
+
+## Description
+This endpoint is used to register a new captain in the system. It accepts captain details, validates the input, and creates a new captain record in the database.
+
+## Request Body
+The request body should be a JSON object with the following structure:
+
+```json
+{
+  "fullname": {
+    "firstname": "string (min: 3 characters, required)",
+    "lastname": "string (optional)"
+  },
+  "email": "string (valid email format, required)",
+  "password": "string (min: 6 characters, required)",
+  "vehicle": {
+    "color": "string (min: 3 characters, required)",
+    "plate": "string (min: 3 characters, required)",
+    "capacity": "integer (positive, required)",
+    "vehicleType": "string (min: 3 characters, required)"
+  }
+}
+```
+
+### Validation Rules
+- `fullname.firstname`: Must be at least 3 characters long and is required.
+- `fullname.lastname`: Optional.
+- `email`: Must be a valid email address and is required.
+- `password`: Must be at least 6 characters long and is required.
+- `vehicle.color`: Must be at least 3 characters long and is required.
+- `vehicle.plate`: Must be at least 3 characters long and is required.
+- `vehicle.capacity`: Must be a positive integer and is required.
+- `vehicle.vehicleType`: Must be at least 3 characters long and is required.
+
+## Response
+### Success Response
+**Status Code:** `201 Created`
+
+**Body:**
+```json
+{
+  "_id": "string",
+  "fullname": {
+    "firstname": "string",
+    "lastname": "string"
+  },
+  "email": "string",
+  "vehicle": {
+    "color": "string",
+    "plate": "string",
+    "capacity": "integer",
+    "vehicleType": "string"
+  }
+}
+```
+
+### Error Responses
+**Status Code:** `400 Bad Request`
+
+**Body:**
+```json
+{
+  "errors": [
+    {
+      "msg": "string (error message)",
+      "param": "string (field name)",
+      "location": "string (body)"
+    }
+  ]
+}
+```
+
+## Example Request
+```bash
+curl -X POST \
+  http://localhost:PORT/captain/register \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "fullname": {
+      "firstname": "Jane",
+      "lastname": "Doe"
+    },
+    "email": "jane.doe@example.com",
+    "password": "securepassword",
+    "vehicle": {
+      "color": "Red",
+      "plate": "XYZ123",
+      "capacity": 4,
+      "vehicleType": "Sedan"
+    }
+  }'
+```
