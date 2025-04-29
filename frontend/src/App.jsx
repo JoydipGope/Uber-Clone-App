@@ -10,6 +10,7 @@ import UserProtectWrapper from './pages/UserProtectWrapper'
 import CaptainProtectWrapper from './pages/CaptainProtectWrapper'
 import UserLogout from './pages/UserLogout'
 import CaptainHome from './pages/CaptainHome'
+import CaptainLogout from './pages/CaptainLogout'
 
 
 const App = () => {
@@ -35,6 +36,11 @@ const App = () => {
         <Route path='/captain-home' element={
           <CaptainProtectWrapper>
             <CaptainHome />
+          </CaptainProtectWrapper>
+        }></Route>
+        <Route path='/captain/logout' element={
+          <CaptainProtectWrapper>
+            <CaptainLogout />
           </CaptainProtectWrapper>
         }></Route>
         
