@@ -233,7 +233,6 @@ This endpoint logs out the authenticated user by invalidating their session.
 This endpoint is used to register a new captain in the system. It accepts captain details, validates the input, and creates a new captain record in the database.
 
 ## Request Body
-The request body should be a JSON object with the following structure:
 
 ```json
 {
@@ -291,7 +290,9 @@ The request body should be a JSON object with the following structure:
 ```
 
 ## Example Request
+
 ```bash
+
 curl -X POST \
   http://localhost:PORT/captain/register \
   -H 'Content-Type: application/json' \
@@ -310,3 +311,64 @@ curl -X POST \
     }
   }'
 ```
+
+### Endpoint
+`GET /rides/get-fare`
+
+### Description
+This endpoint calculates the fare for a ride based on the pickup and destination locations.
+
+### Query Parameters
+- `pickup` (string, required): The pickup location. Must be at least 3 characters long.
+- `destination` (string, required): The destination location. Must be at least 3 characters long.
+
+### Headers
+- `Authorization` (string, required): Bearer token for user authentication.
+
+### Response
+#### Success Response
+**Status Code:** `200 OK`
+
+**Body:**
+```json
+{
+  "cng": "number (fare for CNG vehicle)",
+  "car": "number (fare for car)",
+  "motorcycle": "number (fare for motorcycle)"
+}
+```
+
+#### Error Responses
+**Status Code:** `400 Bad Request`
+
+**Body:**
+```json
+{
+  "errors": [
+    {
+      "msg": "string (error message)",
+      "param": "string (field name)",
+      "location": "string (query)"
+    }
+  ]
+}
+```
+
+**Status Code:** `401 Unauthorized`
+
+**Body:**
+```json
+{
+  "message": "Unauthorized"
+}
+```
+
+### Example Request
+```bash
+curl -X GET \
+  http://localhost:PORT/rides/get-fare \
+  -H 'Authorization: Bearer <your_token>' \
+  -G \
+  --data-urlencode "pickup=Jamuna Future Park" \
+  --data-urlencode "destination=Gulshan 1"
+``````
