@@ -10,9 +10,10 @@ const WaitingForDriver = (props) => {
           <div className='flex items-center justify-between'>
           <img className='h-12' src="https://swyft.pl/wp-content/uploads/2023/05/can-1-person-use-uberx.jpg" alt="" />
           <div className='text-right'>
-            <h2 className='text-lg font-medium'>Joydip</h2>
-            <h4 className='text-xl font-semibold -mb-1 -mt-1'>MP 04 ZX 8788</h4>
+            <h2 className='text-lg font-medium capitalize'>{props.ride?.captain.fullname?.firstname}</h2>
+            <h4 className='text-xl font-semibold -mb-1 -mt-1'>{props.ride?.captain.vehicle.plate}</h4>
             <p className='text-sm text-gray-600'>Toyota Crown</p>
+            <h1 className='text-lg font-semibold'>{props.ride?.otp}</h1>
           </div>
           </div>
 
@@ -22,7 +23,7 @@ const WaitingForDriver = (props) => {
               <i className="ri-map-pin-user-fill"></i>
                   <div>
                     <h3 className='text-lg font-medium'>Jamuna Future Park</h3>
-                    <p className='text-sm -mt-1 text-gray-600'>KA-244, Kuril, Progoti Shoroni, Dhaka</p>
+                    <p className='text-sm -mt-1 text-gray-600'>{props.ride?.pickup}</p>
                   </div>
               </div>
 
@@ -30,14 +31,14 @@ const WaitingForDriver = (props) => {
               <i className="text-lg ri-map-pin-2-fill"></i>
                   <div>
                     <h3 className='text-lg font-medium'>Jamuna Future Park</h3>
-                    <p className='text-sm -mt-1 text-gray-600'>KA-244, Kuril, Progoti Shoroni, Dhaka</p>
+                    <p className='text-sm -mt-1 text-gray-600'>{props.ride?.destination}</p>
                   </div>
               </div>
 
               <div className='flex items-center gap-5 p-3'>
               <i className="ri-currency-line"></i>
                   <div>
-                    <h3 className='text-lg font-medium'>BDT 193.28 </h3>
+                    <h3 className='text-lg font-medium'>BDT {props.ride?.fare} </h3>
                     <p className='text-sm -mt-1 text-gray-600'>Cash Cash</p>
                   </div>
               </div>

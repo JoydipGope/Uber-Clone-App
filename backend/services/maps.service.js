@@ -1,4 +1,6 @@
 const axios = require('axios');
+const captainModel = require('../models/captain.model');
+
 
 module.exports.getAddressCoordinates = async (address) => { 
   const apiKey = process.env.GOOGLE_MAP_API; 
@@ -65,3 +67,40 @@ module.exports.getAutoCompleteSuggestions = async (input) => {
     throw error;
   }
 }
+
+// module.exports.getCaptainsInTheRadius = async (lat, lng, radius) => {
+  
+//   const captains = await captainModel.find({
+//     location: {
+//         $geoWithin: {
+//             $centerSphere: [ [ lng, lat ], radius / 6371000 ]
+//           }
+//         }
+        
+//       });
+//       console.log("Looking for captains near:", { lng, lat });
+
+//   return captains;
+// }
+
+module.exports.getCaptainsInTheRadius = async (lng, lat, radius) => {
+  try {
+    const captains = await captainModel.find({
+      location: {
+        $near: {
+          $geometry: {
+            type: "Point",
+            coordinates: [lng, lat],
+          },
+          $maxDistance: radius // in meters
+        }
+      }
+    });
+
+    console.log("Found captains near:", { lng, lat });
+    return captains;
+  } catch (error) {
+    console.error("Error finding captains in radius:", error);
+    return ;
+  }
+};

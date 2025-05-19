@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+
+
 const captainSchema = new mongoose.Schema({
   fullname: {
     firstname: { 
@@ -62,15 +64,31 @@ const captainSchema = new mongoose.Schema({
     },
   },
 
+  // location: {
+  //   lat: {
+  //     type: [Number]
+  //   },
+  //   lng: {
+  //     type: [Number], 
+  //   }
+  // }
+
   location: {
-    lat: {
-      type: Number,
+    type: {
+      type: String,      // This defines the GeoJSON 'type' field
+      enum: ['Point'],   // Must be 'Point'
+      required: true
     },
-    lng: {
-      type: Number,
-    },
+    coordinates: {
+      type: [Number],    // Array of numbers: [lng, lat]
+      required: true
+    }
   }
+
+
 })
+
+
 
 captainSchema.methods.generateAuthToken = function() {
   const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET, { expiresIn: '24h' });
@@ -85,6 +103,7 @@ captainSchema.statics.hashPassword = async function(password) {
   return await bcrypt.hash(password, 10);
 }
 
+captainSchema.index({ location: '2dsphere' });
 const captainModel = mongoose.model('Captain', captainSchema);
 
 module.exports = captainModel;
